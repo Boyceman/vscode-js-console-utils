@@ -23,7 +23,7 @@ const insertText = (val) => {
 function getAllLogStatements(document, documentText) {
     let logStatements = [];
 
-    const logRegex = /console.(log|debug|info|warn|error|assert|dir|dirxml|trace|group|groupEnd|time|timeEnd|profile|profileEnd|count)\((.*)\);?/g;
+    const logRegex = /console.(log|debug|info|warn|error|assert|dir|dirxml|trace|group|groupEnd|time|timeEnd|profile|profileEnd|count)\((\[ROBOT\].*)\);?/g;
     let match;
     while (match = logRegex.exec(documentText)) {
         let matchRange =
@@ -66,7 +66,7 @@ function activate(context) {
                     const colorIndex = Math.floor(Math.random() * colorList.length);
                     const style = `font-size:20px;background-color: ${colorList[colorIndex]};color:#fff;`
                     const str = `${text}`.replace(/\'|\"/g, '');
-                    const logToInsert = `console.log('%c ${iconList[iconIndex]} ${str}: ', '${style}', ${text});`;
+                    const logToInsert = `console.log('[ROBOT]%c ${iconList[iconIndex]} ${str}: ', '${style}', ${text});`;
                     insertText(logToInsert);
                 })
             : insertText('console.log();');
